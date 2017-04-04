@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Accueil WikiScolaire</title>
+</head>
+<body>
+<input type="Bouton" value="Inscrption" href="inscrption.jsp" >
+<input type="Bouton" value="Connexion" href="Connexion.jsp" >
+</body>
+</html>

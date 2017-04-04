@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;InterfaceWikiScolair&apos; to &apos;InterfaceWikiScolaire&apos;" description="Rename resource &apos;InterfaceWikiScolair&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="/InterfaceWikiScolair" name="InterfaceWikiScolaire" stamp="1490953395366" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;InterfaceWikiScolaire&apos; to &apos;InterfaceWikiScolair&apos;" description="Rename resource &apos;InterfaceWikiScolaire&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="/InterfaceWikiScolaire" name="InterfaceWikiScolair" stamp="1490953441590" updateReferences="true"/>
+</session>
