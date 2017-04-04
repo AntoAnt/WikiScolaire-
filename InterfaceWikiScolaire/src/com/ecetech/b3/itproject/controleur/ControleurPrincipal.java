@@ -1,12 +1,17 @@
 package com.ecetech.b3.itproject.controleur;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ecetech.b3.itproject.redline.beans.user;
+import com.ecetech.b3.itproject.redline.dao.userDAO;
 
 /**
  * Servlet implementation class ControleurPrincipal
@@ -43,6 +48,57 @@ public class ControleurPrincipal extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String idaction = request.getParameter("idaction");
+		
+		if(idaction==null){
+			
+		}
+		else if(idaction.equals("authentification")){
+			String id = request.getParameter("CHAMP_login");
+			String psw = request.getParameter("CHAMP_mdp");
+			//String psw = cripterPswAlgoInit(request.getParameter("CHAMP_mdp"));
+			try {
+				//user u = userDAO.getuserLoginPsw(login,psw);
+				user u = userDAO.getuser(id);
+				
+				if(u == null){
+					// forward vers la âge jsp d'erreur d'authentification ; user login inexistant
+					System.out.println("erreur user null");
+				}
+				else if(!(u.getMdp().equals(psw))){
+					// forward vers la âge jsp d'erreur d'authentification ; user psw erroné
+				}
+				else if(u.getMdp().equals(psw)){
+					// création d'une session utilisateur ...
+					// forward vers la page d'acceuil après authentification
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				//tester sur l'exception et selon le code -> retourner une url : 505... 404...
+			}
+			
+		}
+		else if(idaction.equals("newuser")){
+			String login = request.getParameter("CHAMP_login");			
+			//String id = request.getParameter("CHAMP_id"); to generate UUID
+			String id = request.getParameter("CHAMP_id");
+			String psw = request.getParameter("CHAMP_mdp");
+			String niveau = request.getParameter("CHAMP_niveau");
+
+			user u = new user(id, login, psw, niveau);
+			try {
+				int codeop = userDAO.insertUser(u);
+				//selon le code ... retourner le résultat de l'opération ... utilisateur ajouté avec succès;
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				//tester sur l'exception et selon le code -> retourner une url : 505... 404...
+			}
+			
+		}
 	}
 
 	/**
