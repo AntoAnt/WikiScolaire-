@@ -32,6 +32,32 @@ public class userDAO {
 
 		return Resultat;
 	}
+	
+	
+	
+	public static user getuserbylogin(String login) throws SQLException {
+		DBAction.DBConnexion();
+		user Resultat = new user();
+		String req = ("SELECT * FROM user Where login ='" + login + "'");
+
+		try {
+			DBAction.setRes(DBAction.getStm().executeQuery(req));
+		} catch (SQLException ex) {
+			System.out.println(ex.getErrorCode());
+		}
+
+		while (DBAction.getRes().next()) {
+			Resultat.setId_user(DBAction.getRes().getString(1));
+			Resultat.setLogin((DBAction.getRes().getString(2)));
+			Resultat.setMdp(DBAction.getRes().getString(3));
+			Resultat.setNiveau(DBAction.getRes().getString(4));
+
+		}
+
+		DBAction.DBClose();
+
+		return Resultat;
+	}
 
 	public static ArrayList<user> getAllUser() throws SQLException {
 		DBAction.DBConnexion();
