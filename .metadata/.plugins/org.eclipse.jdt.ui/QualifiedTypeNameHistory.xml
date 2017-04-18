@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
+<fullyQualifiedTypeName name="com.ecetech.b3.itproject.redline.beans.cours"/>
+<fullyQualifiedTypeName name="com.ecetech.b3.itproject.redline.dao.coursDAO"/>
+</qualifiedTypeNameHistroy>

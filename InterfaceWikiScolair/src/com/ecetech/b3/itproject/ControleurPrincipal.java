@@ -2,6 +2,7 @@ package com.ecetech.b3.itproject;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -9,14 +10,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.ecetech.b3.itproject.redline.beans.cours;
 import com.ecetech.b3.itproject.redline.beans.user;
+import com.ecetech.b3.itproject.redline.dao.coursDAO;
 import com.ecetech.b3.itproject.redline.dao.userDAO;
 
 /**
  * Servlet implementation class ControleurPrincipal
  */
-@WebServlet("/ControleurPrincipal")
+
 public class ControleurPrincipal extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -33,6 +37,7 @@ public class ControleurPrincipal extends HttpServlet {
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
+		super.init(config);
 	}
 
 	/**
@@ -47,32 +52,35 @@ public class ControleurPrincipal extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 		String idaction = request.getParameter("idaction");
 		
 		if(idaction==null){
-			System.out.println("erreur idaction non trouver");
+			System.out.println("erreur idaction non trouvé");
+			this.getServletContext().getRequestDispatcher("/interfaceWikiScolair/index.html").forward( request, response );
 		}
 		else if(idaction.equals("authentification")){
 			String login = request.getParameter("CHAMP_login");
 			String psw = request.getParameter("CHAMP_mdp");
+			user u = null;
 			//String psw = cripterPswAlgoInit(request.getParameter("CHAMP_mdp"));
 			try {
 				//user u = userDAO.getuserLoginPsw(login,psw);
-				user u = userDAO.getuserbylogin(login);
-				System.out.println("erreur login");
+				u = userDAO.getuserbylogin(login);
 				if(u == null){
-					// forward vers la âge jsp d'erreur d'authentification ; user login inexistant
+					// forward vers la page jsp d'erreur d'authentification ; user login inexistant
 					System.out.println("erreur user null");
 				}
 				else if(!(u.getMdp().equals(psw))){
-					System.out.println("erreur mauvais mdp");
 					// forward vers la âge jsp d'erreur d'authentification ; user psw erroné
 				}
 				else if(u.getMdp().equals(psw)){
 					System.out.println("Ok Creation de la session");
 					// création d'une session utilisateur ...
+					HttpSession session = request.getSession();
+					session.setAttribute( "login", u.getLogin() );
+					session.setAttribute("id", u.getId_user());
 					// forward vers la page d'acceuil après authentification
+					this.getServletContext().getRequestDispatcher("/WEB-INF/accueil.jsp").forward( request, response );
 				}
 				
 			} catch (SQLException e) {
@@ -82,17 +90,19 @@ public class ControleurPrincipal extends HttpServlet {
 			}
 			
 		}
+		/* When the creation of a new user is requested*/
 		else if(idaction.equals("newuser")){
 			String login = request.getParameter("CHAMP_login");			
 			//String id = request.getParameter("CHAMP_id"); to generate UUID
-			String id = request.getParameter("CHAMP_id");
 			String psw = request.getParameter("CHAMP_mdp");
-			String niveau = request.getParameter("CHAMP_niveau");
+			String id = "Bullshit";
+			String niveau ="Terminale";
 
 			user u = new user(id, login, psw, niveau);
 			try {
 				int codeop = userDAO.insertUser(u);
 				//selon le code ... retourner le résultat de l'opération ... utilisateur ajouté avec succès;
+				System.out.print(codeop + "est la valeur du bidule\n");
 				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -100,6 +110,31 @@ public class ControleurPrincipal extends HttpServlet {
 				//tester sur l'exception et selon le code -> retourner une url : 505... 404...
 			}
 			
+		}
+		else if(idaction.equals("coursesList"))
+		{
+			HttpSession session = request.getSession();
+			if( session.getAttribute("login") != null )
+			{
+				this.getServletContext().getRequestDispatcher("/WEB-INF/Connexion.jsp").forward( request, response );
+			}
+			else
+			{
+				ArrayList<cours> resultat = null;
+				try {
+					resultat = coursDAO.getAllCours();
+					//on affiche le nombre de cours dans l'arraylist
+					System.out.println(resultat.size()+" est le nombre de cours");
+					// on redirige vers là page de la liste des cours
+					
+					this.getServletContext().getRequestDispatcher("/WEB-INF/coursAll.jsp").forward( request, response );
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					//tester sur l'exception et selon le code -> retourner une url : 505... 404...
+				}
+			}
 		}
 	}
 
