@@ -206,22 +206,8 @@ public class ControleurPrincipal extends HttpServlet {
 			{
 				this.getServletContext().getRequestDispatcher("/WEB-INF/Connexion.jsp").forward( request, response );
 			}
-			else{
-				this.getServletContext().getRequestDispatcher("/WEB-INF/Recherche.jsp").forward( request, response );
-			}
-		}
-		else if(idaction.equals("Redirect_Ajout_Cours"))
-		{
-			HttpSession session = request.getSession();
-			if( session.getAttribute("login") != null )
-			{
-				this.getServletContext().getRequestDispatcher("/WEB-INF/Connexion.jsp").forward( request, response );
-			}
-			else{
-				this.getServletContext().getRequestDispatcher("/WEB-INF/AjoutCours.jsp").forward( request, response );
-			}
-		}
-				
+			else
+		
 		else if(idaction.equals("coursesList"))
 		{
 			HttpSession session = request.getSession();

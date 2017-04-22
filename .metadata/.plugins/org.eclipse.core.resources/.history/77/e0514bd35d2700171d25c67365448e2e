@@ -70,7 +70,7 @@ public class ControleurPrincipal extends HttpServlet {
 		
 		if(idaction==null){
 			System.out.println("erreur idaction non trouvé");
-			this.getServletContext().getRequestDispatcher("/InterfaceWikiScolair/WEB-INF/Index.html").forward( request, response );
+			this.getServletContext().getRequestDispatcher("/InterfaceWikiScolair/Index.html").forward( request, response );
 		}
 		else if(idaction.equals("authentification")){
 			String login = request.getParameter("CHAMP_login");
@@ -98,7 +98,7 @@ public class ControleurPrincipal extends HttpServlet {
 					login_user_session = u.getLogin();
 					niv_user_session = u.getNiveau();
 					// forward vers la page d'acceuil après authentification
-					this.getServletContext().getRequestDispatcher("/WEB-INF/accueil.jsp").forward( request, response );
+					this.getServletContext().getRequestDispatcher("/accueil.jsp").forward( request, response );
 				}
 				
 			} catch (SQLException e) {
@@ -162,7 +162,7 @@ public class ControleurPrincipal extends HttpServlet {
 														System.out.print(codeop + "est la valeur du bidule\n");
 
 														System.out.print("gg");
-														this.getServletContext().getRequestDispatcher("/WEB-INF/Index.html").forward( request, response );
+														this.getServletContext().getRequestDispatcher("/index.jsp").forward( request, response );
 														
 														//selon le code ... retourner le résultat de l'opération ... utilisateur ajouté avec succès;
 													
@@ -199,35 +199,14 @@ public class ControleurPrincipal extends HttpServlet {
 		//	}
 
 		//}
-		else if(idaction.equals("Redirect_Recherche_Cours"))
-		{
-			HttpSession session = request.getSession();
-			if( session.getAttribute("login") != null )
-			{
-				this.getServletContext().getRequestDispatcher("/WEB-INF/Connexion.jsp").forward( request, response );
-			}
-			else{
-				this.getServletContext().getRequestDispatcher("/WEB-INF/Recherche.jsp").forward( request, response );
-			}
-		}
-		else if(idaction.equals("Redirect_Ajout_Cours"))
-		{
-			HttpSession session = request.getSession();
-			if( session.getAttribute("login") != null )
-			{
-				this.getServletContext().getRequestDispatcher("/WEB-INF/Connexion.jsp").forward( request, response );
-			}
-			else{
-				this.getServletContext().getRequestDispatcher("/WEB-INF/AjoutCours.jsp").forward( request, response );
-			}
-		}
-				
+		
+		
 		else if(idaction.equals("coursesList"))
 		{
 			HttpSession session = request.getSession();
 			if( session.getAttribute("login") != null )
 			{
-				this.getServletContext().getRequestDispatcher("/WEB-INF/Connexion.jsp").forward( request, response );
+				this.getServletContext().getRequestDispatcher("/Connexion.jsp").forward( request, response );
 			}
 			else
 			{
@@ -238,7 +217,7 @@ public class ControleurPrincipal extends HttpServlet {
 					System.out.println(resultat.size()+" est le nombre de cours");
 					// on redirige vers là page de la liste des cours
 					
-					this.getServletContext().getRequestDispatcher("/WEB-INF/Recherche.jsp").forward( request, response );
+					this.getServletContext().getRequestDispatcher("/Recherche.jsp").forward( request, response );
 					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -253,7 +232,7 @@ public class ControleurPrincipal extends HttpServlet {
 		{			HttpSession session = request.getSession();
 		if( session.getAttribute("login") != null )
 		{
-			this.getServletContext().getRequestDispatcher("/WEB-INF/Connexion.jsp").forward( request, response );
+			this.getServletContext().getRequestDispatcher("/Connexion.jsp").forward( request, response );
 		}else{
 			
 			String Insert_Matiere = request.getParameter("CHAMP_Cours_Matiere");
@@ -271,7 +250,7 @@ public class ControleurPrincipal extends HttpServlet {
 				int Insert_cours = coursDAO.insertCours(Ajoutcours);
 				System.out.println("ok insertcours");
 				System.out.println(id_user);
-				this.getServletContext().getRequestDispatcher("/WEB-INF/accueil.jsp").forward( request, response );
+				this.getServletContext().getRequestDispatcher("/accueil.jsp").forward( request, response );
 			}catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
