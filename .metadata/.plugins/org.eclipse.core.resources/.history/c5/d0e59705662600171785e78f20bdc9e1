@@ -1,0 +1,22 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Accueil Utilisateur</title>
+</head>
+<body>
+<table>
+	<tr>Bienvenue sur WikiScolaire!</tr>
+	<tr><td>Ici vous pouvez trouvez tout les cours que vous voulez!</td></tr>
+	<tr><td><%out.println(session.getAttribute("login"));%></td></tr>
+	<tr><td>Vous pouvez trouvez trouvez des cours de <%out.println(session.getAttribute("niv"));%> </td></tr>
+	<tr><td><a href ="/InterfaceWikiScolair/Recherche.jsp"><input type="button" name="Recherche_cours" value="Rechercher"></a>
+</table>
+
+
+
+
+</body>
+</html>

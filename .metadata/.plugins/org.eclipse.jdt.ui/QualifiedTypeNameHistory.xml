@@ -2,5 +2,14 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
 <fullyQualifiedTypeName name="com.ecetech.b3.itproject.redline.beans.cours"/>
+<fullyQualifiedTypeName name="com.ecetech.b3.itproject.redline.beans.compte"/>
+<fullyQualifiedTypeName name="com.ecetech.b3.itproject.redline.dao.compteDAO"/>
+<fullyQualifiedTypeName name="com.ecetech.b3.itproject.redline.beans.categorie"/>
+<fullyQualifiedTypeName name="com.ecetech.b3.itproject.redline.dao.categorieDAO"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
+<fullyQualifiedTypeName name="java.text.DateFormat"/>
+<fullyQualifiedTypeName name="javax.jms.Session"/>
+<fullyQualifiedTypeName name="javax.mail.Session"/>
 <fullyQualifiedTypeName name="com.ecetech.b3.itproject.redline.dao.coursDAO"/>
 </qualifiedTypeNameHistroy>
