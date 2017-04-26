@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <servers>
-  <server auto-publish-setting="1" glassfish.adminname="admin" glassfish.adminserverportnumber="4848" glassfish.domainpath="C:/Users/geraud/eclipse/jee-neon/eclipse/glassfish4/glassfish/domains/domain1" glassfish.jarDeploy="false" glassfish.keepSessions="true" glassfish.serverportnumber="8080" glassfish.useAnonymousConnection="true" hostname="localhost" id="GlassFish 4 (2) at localhost [domain1]" name="GlassFish 4 (2) at localhost [domain1]" runtime-id="GlassFish 4 (2)" server-type="glassfish.server" server-type-id="glassfish.server" start-timeout="240" stop-timeout="240" timestamp="19">
+  <server auto-publish-setting="1" glassfish.adminname="admin" glassfish.adminserverportnumber="4848" glassfish.domainpath="C:/Users/geraud/eclipse/jee-neon/eclipse/glassfish4/glassfish/domains/domain1" glassfish.jarDeploy="false" glassfish.keepSessions="true" glassfish.serverportnumber="8080" glassfish.useAnonymousConnection="true" hostname="localhost" id="GlassFish 4 (2) at localhost [domain1]" name="GlassFish 4 (2) at localhost [domain1]" runtime-id="GlassFish 4 (2)" server-type="glassfish.server" server-type-id="glassfish.server" start-timeout="240" stop-timeout="240" timestamp="27">
     <list key="modules" value0="InterfaceWikiScolair::org.eclipse.jst.jee.server:InterfaceWikiScolair::jst.web::3.1"/>
   </server>
 </servers>
