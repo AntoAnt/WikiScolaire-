@@ -1,3 +1,3 @@
 #GlassFish 3
-#Wed Apr 26 14:05:41 CEST 2017
-org.eclipse.jst.jee.server\:InterfaceWikiScolair=D\:\\Program Files\\glassfish-4.1.1\\glassfish4\\glassfish\\domains\\domain1\\eclipseApps\\InterfaceWikiScolair
+#Fri Apr 21 12:06:10 CEST 2017
+org.eclipse.jst.jee.server\:InterfaceWikiScolair=C\:\\Users\\geraud\\eclipse\\jee-neon\\eclipse\\glassfish4\\glassfish\\domains\\domain1\\eclipseApps\\InterfaceWikiScolair

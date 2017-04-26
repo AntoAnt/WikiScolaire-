@@ -83,7 +83,7 @@ public class coursDAO {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}*/
-				java.sql.Date date= new java.sql.Date(System.currentTimeMillis());
+				
 				if(cours1.getId_cours()!="")
 				{
 					req.setString(1,cours1.getId_cours());
@@ -96,7 +96,7 @@ public class coursDAO {
 				req.setString(2,cours1.getId_user());
 				req.setString(3,cours1.getId_categorie());
 				req.setString(4,cours1.getTitre_cours());
-				req.setDate( 5, date);               //req.setDate( 5, cours1.getDate_cours());                 
+				req.setDate( 5, cours1.getDate_cours());                   ///req.setDate( 5, date);
 				req.setString(6,cours1.getDoc_cours());
 				
 				
