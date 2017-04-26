@@ -12,4 +12,6 @@
 <fullyQualifiedTypeName name="javax.jms.Session"/>
 <fullyQualifiedTypeName name="javax.mail.Session"/>
 <fullyQualifiedTypeName name="com.ecetech.b3.itproject.redline.dao.coursDAO"/>
+<fullyQualifiedTypeName name="com.ecetech.b3.itproject.redline.dao.adminDAO"/>
+<fullyQualifiedTypeName name="com.ecetech.b3.itproject.redline.beans.admin"/>
 </qualifiedTypeNameHistroy>

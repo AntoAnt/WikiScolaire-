@@ -17,10 +17,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ecetech.b3.itproject.redline.beans.admin;
 import com.ecetech.b3.itproject.redline.beans.categorie;
 import com.ecetech.b3.itproject.redline.beans.compte;
 import com.ecetech.b3.itproject.redline.beans.cours;
 import com.ecetech.b3.itproject.redline.beans.user;
+import com.ecetech.b3.itproject.redline.dao.adminDAO;
 import com.ecetech.b3.itproject.redline.dao.categorieDAO;
 import com.ecetech.b3.itproject.redline.dao.compteDAO;
 import com.ecetech.b3.itproject.redline.dao.coursDAO;
@@ -72,7 +74,7 @@ public class ControleurPrincipal extends HttpServlet {
 		
 		if(idaction==null){
 			System.out.println("erreur idaction non trouvé");
-			this.getServletContext().getRequestDispatcher("/InterfaceWikiScolair/Index.jsp").forward( request, response );
+			this.getServletContext().getRequestDispatcher("/InterfaceWikiScolair/Index.html").forward( request, response );
 		}
 		else if(idaction.equals("authentification")){
 			String login = request.getParameter("CHAMP_login");
@@ -90,7 +92,24 @@ public class ControleurPrincipal extends HttpServlet {
 					// forward vers la âge jsp d'erreur d'authentification ; user psw erroné
 				}
 				else if(u.getMdp().equals(psw)){
-					System.out.println("Ok Creation de la session");
+					
+				admin a = adminDAO.getadminbyiduser(u.getId_user());
+				
+					if (a.getNiv_admin() == 2){
+						
+						System.out.println("Ok Creation de la session admin");
+						// création d'une session utilisateur ...
+						//HttpSession session = request.getSession();
+						session.setAttribute( "login", u.getLogin() );
+						session.setAttribute("id", u.getId_user());
+						session.setAttribute("niv", u.getNiveau());
+						
+						// forward vers la page d'acceuil après authentification
+						this.getServletContext().getRequestDispatcher("/WEB-INF/accueil_admin.jsp").forward( request, response );
+						
+					}
+					else{
+					System.out.println("Ok Creation de la session user");
 					// création d'une session utilisateur ...
 					//HttpSession session = request.getSession();
 					session.setAttribute( "login", u.getLogin() );
@@ -101,7 +120,8 @@ public class ControleurPrincipal extends HttpServlet {
 					niv_user_session = u.getNiveau();
 					
 					// forward vers la page d'acceuil après authentification
-					this.getServletContext().getRequestDispatcher("/accueil.jsp").forward( request, response );
+					this.getServletContext().getRequestDispatcher("/WEB-INF/accueil.jsp").forward( request, response );
+					}
 				}
 				
 			} catch (SQLException e) {
@@ -129,46 +149,45 @@ public class ControleurPrincipal extends HttpServlet {
 			user u = new user(id_user, login, psw, niveau);
 			compte c = new compte(id_compte, id_user, Nom, Prenom, Email, Codepostal, Telephone);
 			try {
-				if(login == null){
+				if(login != null){
 					System.out.println("login null");
 					// forward vers la page jsp d'erreur d'Inscription ; user login non renseigner
-					if(psw == null){
+					if(psw != null){
 						System.out.println("psw null");
 						// forward vers la page jsp d'erreur d'Inscription ; user psw non renseigner
-						if(niveau == null){
+						if(niveau != null){
 							System.out.println("niveau null");
 							// forward vers la page jsp d'erreur d'Inscription ; user Niveau non renseigner
-							if(Nom == null){
+							if(Nom != null){
 								System.out.println("Nom null");
 								// forward vers la page jsp d'erreur d'Inscription ; user Nom non renseigner
-								 if(Prenom == null){
+								 if(Prenom != null){
 										System.out.println("Prenom null");
 										// forward vers la page jsp d'erreur d'Inscription ; user Prenom non renseigner
-										 if(Email == null){
+										 if(Email != null){
 												System.out.println("Email null");
 												// forward vers la page jsp d'erreur d'Inscription ; user Email non renseigner
-												if(Codepostal == null){
+												if(Codepostal != null){
 													System.out.println("Codepostal null");
 													// forward vers la page jsp d'erreur d'Inscription ; user CP non renseigner
-													if (Telephone == null){
+													if (Telephone != null){
 														System.out.println("Telephone null");
 														// forward vers la page jsp d'erreur d'Inscription ; user Tel non renseigner
-														
-														int codeop = userDAO.insertUser(u);
-										
-														String iduserinit = userDAO.getuserbylogin(u.getLogin()).getId_user();
-														System.out.println(iduserinit + "cest l'id du user");
-														compte compteuser = new compte(id_compte, iduserinit, Nom, Prenom, Email, Codepostal, Telephone);
-														int codeinscription = compteDAO.insertCompte(compteuser);
-														
-														System.out.println(codeinscription + "est la valeur du bidule d'inscription");
-														System.out.print(codeop + "est la valeur du bidule\n");
-
-														System.out.print("gg");
-														this.getServletContext().getRequestDispatcher("/Index.html").forward( request, response );
-														
-														//selon le code ... retourner le résultat de l'opération ... utilisateur ajouté avec succès;
+												
+													int codeop = userDAO.insertUser(u);
 													
+													String iduserinit = userDAO.getuserbylogin(u.getLogin()).getId_user();
+													System.out.println(iduserinit + "cest l'id du user");
+													compte compteuser = new compte(id_compte, iduserinit, Nom, Prenom, Email, Codepostal, Telephone);
+													int codeinscription = compteDAO.insertCompte(compteuser);
+													System.out.println(codeinscription + "est la valeur du bidule d'inscription");
+													System.out.print(codeop + "est la valeur du bidule\n");
+
+													System.out.print("gg");
+													this.getServletContext().getRequestDispatcher("/Index.html").forward( request, response );
+													
+													//selon le code ... retourner le résultat de l'opération ... utilisateur ajouté avec succès;
+												
 												}
 											}
 										}
@@ -205,12 +224,12 @@ public class ControleurPrincipal extends HttpServlet {
 		else if(idaction.equals("Redirect_Recherche_Cours"))
 		{
 			//HttpSession session = request.getSession();
-			if( session.getAttribute("login") != null )
+			if( session.getAttribute("login") == null )
 			{
-				this.getServletContext().getRequestDispatcher("/Index.jsp").forward( request, response );
+				this.getServletContext().getRequestDispatcher("/WEB-INF/Index.jsp").forward( request, response );
 			}
 			else{
-				this.getServletContext().getRequestDispatcher("/Recherche.jsp").forward( request, response );
+				this.getServletContext().getRequestDispatcher("/WEB-INF/Recherche.jsp").forward( request, response );
 			}
 		}
 		else if(idaction.equals("Redirect_Ajout_Cours"))
@@ -219,11 +238,11 @@ public class ControleurPrincipal extends HttpServlet {
 			if( session.getAttribute("login") == null )
 			{
 				System.out.println("erreur");
-				this.getServletContext().getRequestDispatcher("/Index.jsp").forward( request, response );
+				this.getServletContext().getRequestDispatcher("/WEB-INF/Index.jsp").forward( request, response );
 			}
 			else{
 				System.out.println("redirect faite");
-				this.getServletContext().getRequestDispatcher("/AjoutCours.jsp").forward( request, response );
+				this.getServletContext().getRequestDispatcher("/WEB-INF/AjoutCours.jsp").forward( request, response );
 			}
 		}
 				
@@ -232,7 +251,7 @@ public class ControleurPrincipal extends HttpServlet {
 			//HttpSession session = request.getSession();
 			if( session.getAttribute("login") == null )
 			{
-				this.getServletContext().getRequestDispatcher("/Index.jsp").forward( request, response );
+				this.getServletContext().getRequestDispatcher("/WEB-INF/Index.jsp").forward( request, response );
 			}
 			else
 			{
@@ -243,7 +262,7 @@ public class ControleurPrincipal extends HttpServlet {
 					System.out.println(resultat.size()+" est le nombre de cours");
 					// on redirige vers là page de la liste des cours
 					
-					this.getServletContext().getRequestDispatcher("/Recherche.jsp").forward( request, response );
+					this.getServletContext().getRequestDispatcher("/WEB-INF/Recherche.jsp").forward( request, response );
 					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -259,7 +278,7 @@ public class ControleurPrincipal extends HttpServlet {
 			//HttpSession session = request.getSession();
 		if( session.getAttribute("login") == null )
 		{
-			this.getServletContext().getRequestDispatcher("/Index.jsp").forward( request, response );
+			this.getServletContext().getRequestDispatcher("/WEB-INF/Index.jsp").forward( request, response );
 		}else{
 			
 			String Insert_Matiere = request.getParameter("CHAMP_Cours_Matiere");
@@ -268,7 +287,6 @@ public class ControleurPrincipal extends HttpServlet {
 			String titre_cours = request.getParameter("CHAMP_Cours_Nom");
 			String doc_cours = request.getParameter("CHAMP_Cours_Doc");
 			String id_cours ="";
-			//String id_user = id_user_session;
 			String id_user = (String)(session.getAttribute("id"));
 			String ID_CATEGO = Insert_Niveau+Insert_Matiere;
 			java.sql.Date date_cours = new java.sql.Date(System.currentTimeMillis());
@@ -278,7 +296,7 @@ public class ControleurPrincipal extends HttpServlet {
 				System.out.println(id_user);
 				int Insert_cours = coursDAO.insertCours(Ajoutcours);
 				System.out.println("ok insertcours");
-				this.getServletContext().getRequestDispatcher("/accueil.jsp").forward( request, response );
+				this.getServletContext().getRequestDispatcher("/WEB-INF/accueil.jsp").forward( request, response );
 			}catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -32,6 +32,28 @@ public class adminDAO {
 		return a;
 	}
 	
+	public static admin getadminbyiduser(String id) throws SQLException {
+		DBAction.DBConnexion();
+		admin a = new admin();
+		
+		String req = ("SELECT * FROM admin WHERE id_user='" + id +"'");
+		
+		
+		try{
+			DBAction.setRes(DBAction.getStm().executeQuery(req));
+		}catch (SQLException ex) {
+			System.out.println(ex.getErrorCode());
+		}
+		while (DBAction.getRes().next()) {
+			a.setId_admin((DBAction.getRes().getString(1)));
+			a.setId_user(DBAction.getRes().getString(2));
+			a.setNiv_admin(DBAction.getRes().getInt(3));
+		}
+
+		DBAction.DBClose();
+		return a;
+	}
+	
 	public static ArrayList<admin> getAlladmin() throws SQLException{
 		DBAction.DBConnexion();
 		ArrayList<admin> resultat = new ArrayList<admin>();

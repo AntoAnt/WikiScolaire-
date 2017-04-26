@@ -14,7 +14,11 @@ Login :<br></br>
 Mot de passe :<br></br>
 <input type="password" name="CHAMP_Mdp" ><br></br>
 Niveaux Scolaire :<br></br>
-<input type="text" name="CHAMP_Niv" ><br></br>
+<select name="CHAMP_Niv">
+	<option value = "Terminal">Terminal</option>
+	<option value = "Premiere">Premiere</otpion>
+	<option value = "Seconde">Seconde</option>
+</select><br></br>
 --------------------------------------------------------------<br></br>
 Nom :<br></br>
 <input type="text" name="CHAMP_Nom" ><br></br>
@@ -27,7 +31,7 @@ Code-Postal :<br></br>
 Telephone :<br></br>
 <input type="text" name="CHAMP_Tel" ><br></br>
 <input type="submit" name="bouton" value="connexion" />
-
+</form>
 
 </body>
 </html>
