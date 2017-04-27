@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {}
+=======
+[[{"location":"C:\\Users\\geraud\\eclipse\\jee-neon\\eclipse\\glassfish4\\glassfish\\modules\\javax.servlet-api.jar","type":"JAR","hints":{}},"javax.servlet:javax.servlet-api:3.1.0"],[{"location":"C:\\Users\\geraud\\WikiScolaire-\\InterfaceWikiScolair\\WebContent\\WEB-INF\\lib\\Model.jar","type":"JAR","hints":{}},"ABSENT"],[{"location":"C:\\Program Files\\Java\\jdk1.8.0_121","type":"JRE","hints":{}},"jre:jre:1.8.0"]]
+>>>>>>> gerobranche

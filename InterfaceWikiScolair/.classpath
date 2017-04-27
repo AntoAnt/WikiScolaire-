@@ -16,5 +16,10 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+<<<<<<< HEAD
 	<classpathentry kind="output" path="build/classes2"/>
+=======
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/Model.jar"/>
+	<classpathentry kind="output" path="build/classes"/>
+>>>>>>> gerobranche
 </classpath>

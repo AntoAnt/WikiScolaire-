@@ -14,7 +14,10 @@
 <fullyQualifiedTypeName name="javax.servlet.http.Part"/>
 <fullyQualifiedTypeName name="java.io.InputStream"/>
 <fullyQualifiedTypeName name="com.ecetech.b3.itproject.redline.dao.coursDAO"/>
+<<<<<<< HEAD
 <fullyQualifiedTypeName name="java.lang.System"/>
+=======
+>>>>>>> gerobranche
 <fullyQualifiedTypeName name="com.ecetech.b3.itproject.redline.dao.adminDAO"/>
 <fullyQualifiedTypeName name="com.ecetech.b3.itproject.redline.beans.admin"/>
 </qualifiedTypeNameHistroy>

@@ -1,4 +1,5 @@
 1493208231671	Delete element
+<<<<<<< HEAD
 1493245148131	Delete element
 1493246483470	Delete element
 1493247640059	Delete element
@@ -11,3 +12,24 @@
 1493312214986	Move 'Inscription.jsp' to 'WEB-INF'
 1493312216452	Move 'Recherche.jsp' to 'WEB-INF'
 1493317275054	Delete element
+=======
+1493211964324	Copy file
+1493212007176	Delete element
+1493212061500	Copy file
+1493212068159	Copy file
+1493212073864	Copy file
+1493212082219	Copy file
+1493212086206	Delete element
+1493212088448	Delete element
+1493212090818	Delete element
+1493212092578	Delete element
+1493212347415	Copy file
+1493212350706	Delete element
+1493212522011	Copy file
+1493212525400	Delete element
+1493213369068	Copy file
+1493213372275	Delete element
+1493237412154	Delete element
+1493308545252	Delete element
+1493308955866	Delete element
+>>>>>>> gerobranche

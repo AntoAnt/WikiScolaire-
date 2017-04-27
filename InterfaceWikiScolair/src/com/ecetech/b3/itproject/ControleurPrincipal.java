@@ -76,8 +76,13 @@ public class ControleurPrincipal extends HttpServlet {
 		
 		
 		if(idaction==null){
+<<<<<<< HEAD
 			System.out.println("erreur idaction non trouvÃ©");
 			this.getServletContext().getRequestDispatcher("/InterfaceWikiScolair/Index.jsp").forward( request, response );
+=======
+			System.out.println("erreur idaction non trouvé");
+			this.getServletContext().getRequestDispatcher("/InterfaceWikiScolair/Index.html").forward( request, response );
+>>>>>>> gerobranche
 		}
 		else if(idaction.equals("authentification")){
 			String login = request.getParameter("CHAMP_login");
@@ -95,6 +100,7 @@ public class ControleurPrincipal extends HttpServlet {
 					// forward vers la Ã¢ge jsp d'erreur d'authentification ; user psw erronÃ©
 				}
 				else if(u.getMdp().equals(psw)){
+<<<<<<< HEAD
 					System.out.println("Ok Creation de la session");
 					
 					admin a = adminDAO.getadminbyiduser(u.getId_user());
@@ -127,6 +133,28 @@ public class ControleurPrincipal extends HttpServlet {
 			 
 			          }
 					// crÃ©ation d'une session utilisateur ...
+=======
+					
+				admin a = adminDAO.getadminbyiduser(u.getId_user());
+				
+					if (a.getNiv_admin() == 2){
+						
+						System.out.println("Ok Creation de la session admin");
+						// création d'une session utilisateur ...
+						//HttpSession session = request.getSession();
+						session.setAttribute( "login", u.getLogin() );
+						session.setAttribute("id", u.getId_user());
+						session.setAttribute("niv", u.getNiveau());
+						session.setAttribute("niv_admin", a.getNiv_admin());
+						
+						// forward vers la page d'acceuil après authentification
+						this.getServletContext().getRequestDispatcher("/WEB-INF/accueil_admin.jsp").forward( request, response );
+						
+					}
+					else{
+					System.out.println("Ok Creation de la session user");
+					// création d'une session utilisateur ...
+>>>>>>> gerobranche
 					//HttpSession session = request.getSession();
 					session.setAttribute( "login", u.getLogin() );
 					session.setAttribute("id", u.getId_user());
@@ -135,8 +163,14 @@ public class ControleurPrincipal extends HttpServlet {
 					login_user_session = u.getLogin();
 					niv_user_session = u.getNiveau();
 					
+<<<<<<< HEAD
 					// forward vers la page d'acceuil aprÃ¨s authentification
 					this.getServletContext().getRequestDispatcher("/WEB-INF/accueil.jsp").forward( request, response );
+=======
+					// forward vers la page d'acceuil après authentification
+					this.getServletContext().getRequestDispatcher("/WEB-INF/accueil.jsp").forward( request, response );
+					}
+>>>>>>> gerobranche
 				}
 				
 			} catch (SQLException e) {
@@ -164,46 +198,52 @@ public class ControleurPrincipal extends HttpServlet {
 			user u = new user(id_user, login, psw, niveau);
 			compte c = new compte(id_compte, id_user, Nom, Prenom, Email, Codepostal, Telephone);
 			try {
-				if(login == null){
+				if(login != null){
 					System.out.println("login null");
 					// forward vers la page jsp d'erreur d'Inscription ; user login non renseigner
-					if(psw == null){
+					if(psw != null){
 						System.out.println("psw null");
 						// forward vers la page jsp d'erreur d'Inscription ; user psw non renseigner
-						if(niveau == null){
+						if(niveau != null){
 							System.out.println("niveau null");
 							// forward vers la page jsp d'erreur d'Inscription ; user Niveau non renseigner
-							if(Nom == null){
+							if(Nom != null){
 								System.out.println("Nom null");
 								// forward vers la page jsp d'erreur d'Inscription ; user Nom non renseigner
-								 if(Prenom == null){
+								 if(Prenom != null){
 										System.out.println("Prenom null");
 										// forward vers la page jsp d'erreur d'Inscription ; user Prenom non renseigner
-										 if(Email == null){
+										 if(Email != null){
 												System.out.println("Email null");
 												// forward vers la page jsp d'erreur d'Inscription ; user Email non renseigner
-												if(Codepostal == null){
+												if(Codepostal != null){
 													System.out.println("Codepostal null");
 													// forward vers la page jsp d'erreur d'Inscription ; user CP non renseigner
-													if (Telephone == null){
+													if (Telephone != null){
 														System.out.println("Telephone null");
 														// forward vers la page jsp d'erreur d'Inscription ; user Tel non renseigner
-														
-														int codeop = userDAO.insertUser(u);
-										
-														String iduserinit = userDAO.getuserbylogin(u.getLogin()).getId_user();
-														System.out.println(iduserinit + "cest l'id du user");
-														compte compteuser = new compte(id_compte, iduserinit, Nom, Prenom, Email, Codepostal, Telephone);
-														int codeinscription = compteDAO.insertCompte(compteuser);
-														
-														System.out.println(codeinscription + "est la valeur du bidule d'inscription");
-														System.out.print(codeop + "est la valeur du bidule\n");
+												
+													int codeop = userDAO.insertUser(u);
+													
+													String iduserinit = userDAO.getuserbylogin(u.getLogin()).getId_user();
+													System.out.println(iduserinit + "cest l'id du user");
+													compte compteuser = new compte(id_compte, iduserinit, Nom, Prenom, Email, Codepostal, Telephone);
+													int codeinscription = compteDAO.insertCompte(compteuser);
+													System.out.println(codeinscription + "est la valeur du bidule d'inscription");
+													System.out.print(codeop + "est la valeur du bidule\n");
 
+<<<<<<< HEAD
 														System.out.print("gg");
 														this.getServletContext().getRequestDispatcher("/WEB-INF/Index.html").forward( request, response );
 														
 														//selon le code ... retourner le rÃ©sultat de l'opÃ©ration ... utilisateur ajoutÃ© avec succÃ¨s;
+=======
+													System.out.print("gg");
+													this.getServletContext().getRequestDispatcher("/Index.html").forward( request, response );
+>>>>>>> gerobranche
 													
+													//selon le code ... retourner le résultat de l'opération ... utilisateur ajouté avec succès;
+												
 												}
 											}
 										}
@@ -245,6 +285,7 @@ public class ControleurPrincipal extends HttpServlet {
 				this.getServletContext().getRequestDispatcher("/WEB-INF/Index.jsp").forward( request, response );
 			}
 			else{
+<<<<<<< HEAD
 				if(request.getParameter("Recherche_Matiere")!=null&&request.getParameter("Recherche_Niveau")!=null)
 				{
 					/* rÃ©cupÃ©rer les informations de la requete, faire appelle Ã  une fonction DAO
@@ -265,6 +306,8 @@ public class ControleurPrincipal extends HttpServlet {
 				
 				
 				
+=======
+>>>>>>> gerobranche
 				this.getServletContext().getRequestDispatcher("/WEB-INF/Recherche.jsp").forward( request, response );
 			}
 		}
@@ -349,9 +392,15 @@ public class ControleurPrincipal extends HttpServlet {
 			Ajoutcours.setDoc_cours(doc_cours);
 			Ajoutcours.setTaille_cours(filePart.getSize()); /// is normally long, might cause trouble later on
 			try{
+<<<<<<< HEAD
 				System.out.println(cours.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 				int Insert_cours = coursDAO.insertCours(Ajoutcours,inputStream);
 				System.out.println("ok insertcours" + Insert_cours);
+=======
+				System.out.println(id_user);
+				int Insert_cours = coursDAO.insertCours(Ajoutcours);
+				System.out.println("ok insertcours");
+>>>>>>> gerobranche
 				this.getServletContext().getRequestDispatcher("/WEB-INF/accueil.jsp").forward( request, response );
 			}catch (SQLException e) {
 				// TODO Auto-generated catch block

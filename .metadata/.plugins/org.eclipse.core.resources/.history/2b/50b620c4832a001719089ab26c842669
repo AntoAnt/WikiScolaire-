@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Formulaire User</title>
+</head>
+<body>
+	<form method="post" action="/InterfaceWikiScolair/ControleurPrincipal?idaction=authentification">
+		<table>
+			<td>Identification (index html)</td>
+			<tr><td>Login</td></tr>
+			<tr><td><input type="text" name="CHAMP_login"/><br></td></tr>
+			<tr><td>Mot de passe</td></tr>
+			<tr><td><input type="password" name="CHAMP_mdp"/><br></td></tr>
+			<tr><td><input type="submit" name="bouton" value="connexion" /></tr></td>
+			</form>
+			<tr><td>Vous n'avez pas encore de compte ! Inscrivez-vous vite !</td></tr>
+			<form method="post" action="/InterfaceWikiScolair/ControleurPrincipal?idaction=Redirect_inscription">
+				<tr><td><input type="submit" name="Inscription" value="Inscription"></td></tr>
+			</form>
+	</table>
+</body>
+</html>

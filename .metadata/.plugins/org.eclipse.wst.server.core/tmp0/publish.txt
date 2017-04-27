@@ -1,3 +1,8 @@
 #GlassFish 3
+<<<<<<< HEAD
 #Thu Apr 27 20:22:23 CEST 2017
 org.eclipse.jst.jee.server\:InterfaceWikiScolair=D\:\\Program Files\\glassfish-4.1.1\\glassfish4\\glassfish\\domains\\domain1\\eclipseApps\\InterfaceWikiScolair
+=======
+#Thu Apr 27 19:14:19 CEST 2017
+org.eclipse.jst.jee.server\:InterfaceWikiScolair=C\:\\Users\\geraud\\eclipse\\jee-neon\\eclipse\\glassfish4\\glassfish\\domains\\domain1\\eclipseApps\\InterfaceWikiScolair
+>>>>>>> gerobranche

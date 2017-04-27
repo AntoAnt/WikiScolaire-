@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/InterfaceWikiScolair/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/InterfaceWikiScolair/font-awesome-4.6.3/css/font-awesome.min.css"  rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Crimson+Text" rel="stylesheet"> 
+    <link href="/InterfaceWikiScolair/style.css" rel="stylesheet">
+<title>Formulaire User</title>
+</head>
+<body>
+	<form method="post" action="/InterfaceWikiScolair/ControleurPrincipal?idaction=authentification">
+		<table>
+			<td>Identification (index html)</td>
+			<tr><td>Login</td></tr>
+			<tr><td><input type="text" name="CHAMP_login"/><br></td></tr>
+			<tr><td>Mot de passe</td></tr>
+			<tr><td><input type="password" name="CHAMP_mdp"/><br></td></tr>
+			<tr><td><input type="submit" name="bouton" value="connexion" /></tr></td>
+			<tr><td>Vous n'avez pas encore de compte ! Inscrivez-vous vite !</td></tr>
+			<tr><td><a href = "/InterfaceWikiScolair/Inscription.jsp"><input type ="button" name="Inscription" value = "Inscription" /></a></td></tr>
+		</table>
+	</form>
+	<div class="container-fluid">
+                <div class="col-xs-12 col-sm-12 col-lg-4 col-md-4 doc">
+                    Yo c'est un teste 
+                </div>
+                <div class="col-xs-12 col-sm-12 col-lg-7 col-md-7 doc">
+                salut
+                </div>
+            </div>
+
+            <div class="raw">
+                <div class="col-lg-9 col-lg-offset-3 b">                            
+                
+                </div> 
+            </div>
+
+            <div class="raw">
+                <div class="col-lg-9 col-lg-offset-3 b">                            
+                
+                </div> 
+            </div>
+
+            <div class="raw">
+                <div class="col-lg-9 col-lg-offset-3 b">                            
+                    
+                </div> 
+            </div>
+        </div>
+</body>
+
+ <!-- Bootstrap core JavaScript
+                    ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+        <script src="../../dist/js/bootstrap.min.js"></script>
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+</html>

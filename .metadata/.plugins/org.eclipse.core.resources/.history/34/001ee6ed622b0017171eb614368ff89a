@@ -1,0 +1,49 @@
+body{
+	font-family: 'Impact', serif;
+	color: black;
+}
+
+.superpose {
+   position: absolute;
+   top: 0px;
+   left: 15px;
+   height: 132px;
+}
+
+.bar{
+    background-color: #4992FF;
+    padding: 25px;
+}
+
+.dropdown{
+	margin-left: 50%;	
+}
+
+.doc{
+	margin:25px;
+	padding: 25px;
+	border-style: solid;
+	border-color: #D8D8D8;
+	border-radius: 10px; 
+	border-width: 2px;
+}
+
+a:hover {
+	color: black;
+	background-color: black;
+}
+
+.nav > li > a:hover {
+  background-color: #4992FF;
+}
+
+@media screen and (max-width: 768px){
+	.nonemin{
+		display: none;
+	}
+}
+@media screen and (min-width: 768px){
+	.nonemax{
+		display: none;
+	}
+}
