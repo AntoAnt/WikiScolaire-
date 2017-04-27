@@ -10,14 +10,17 @@ public class cours {
 	private String titre_cours;
 	private Date date_cours;
 	private String doc_cours;
+	private long taille_cours;
+	private byte[] blob_cours;
 	
 /*Builder*/	
 	public cours() {
-		this("","","","",null,"");
+		this("","","","",null,"",0,null);
 	}
 	
 
-	public cours(String id_cours, String id_user, String id_categorie, String titre_cours, Date date_cours, String doc_cours) {
+	public cours(String id_cours, String id_user, String id_categorie, String titre_cours, 
+			Date date_cours, String doc_cours,int taille,byte[] blob) {
 		super();
 		this.id_cours = id_cours;
 		this.id_user = id_user;
@@ -25,6 +28,8 @@ public class cours {
 		this.titre_cours = titre_cours;
 		this.date_cours = date_cours;
 		this.doc_cours = doc_cours;
+		this.taille_cours = taille;
+		this.blob_cours = blob;
 	}
 	
 /*Getter/Setter*/	
@@ -64,6 +69,26 @@ public class cours {
 	public void setDoc_cours(String doc_cours) {
 		this.doc_cours = doc_cours;
 	}
+	
+	public void setTaille_cours(long taille) 
+	{
+		this.taille_cours = taille;
+	}
+	
+	public long getTaille_cours(){
+		return this.taille_cours;
+	}
+	
+	
+	public byte[] getBlob_cours(){
+		return this.blob_cours;
+	}
+	
+	public void setBlob_cours(byte[] blob) {
+		this.blob_cours = blob;
+	}
+	
+	
 	
 	@Override
 	public boolean equals(Object obj) {
