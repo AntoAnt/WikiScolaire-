@@ -1,6 +1,7 @@
 package com.ecetech.b3.itproject;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -16,11 +17,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
+import com.ecetech.b3.itproject.redline.beans.admin;
 import com.ecetech.b3.itproject.redline.beans.categorie;
 import com.ecetech.b3.itproject.redline.beans.compte;
 import com.ecetech.b3.itproject.redline.beans.cours;
 import com.ecetech.b3.itproject.redline.beans.user;
+import com.ecetech.b3.itproject.redline.dao.adminDAO;
 import com.ecetech.b3.itproject.redline.dao.categorieDAO;
 import com.ecetech.b3.itproject.redline.dao.compteDAO;
 import com.ecetech.b3.itproject.redline.dao.coursDAO;
@@ -63,15 +67,16 @@ public class ControleurPrincipal extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String idaction = request.getParameter("idaction");
-		String id_user_session = "";
-		String login_user_session = "";
-		String niv_user_session = "";
 		HttpSession session = request.getSession();
+		String id_user_session = (String)session.getAttribute("id") ;
+		String login_user_session = (String)session.getAttribute("login") ;
+		String niv_user_session = (String)session.getAttribute("niv") ;
+		
 		
 		
 		
 		if(idaction==null){
-			System.out.println("erreur idaction non trouvé");
+			System.out.println("erreur idaction non trouvÃ©");
 			this.getServletContext().getRequestDispatcher("/InterfaceWikiScolair/Index.jsp").forward( request, response );
 		}
 		else if(idaction.equals("authentification")){
@@ -87,11 +92,41 @@ public class ControleurPrincipal extends HttpServlet {
 					System.out.println("erreur user null");
 				}
 				else if(!(u.getMdp().equals(psw))){
-					// forward vers la âge jsp d'erreur d'authentification ; user psw erroné
+					// forward vers la Ã¢ge jsp d'erreur d'authentification ; user psw erronÃ©
 				}
 				else if(u.getMdp().equals(psw)){
 					System.out.println("Ok Creation de la session");
-					// création d'une session utilisateur ...
+					
+					admin a = adminDAO.getadminbyiduser(u.getId_user());
+					 
+			        
+					 
+			          if (a.getNiv_admin() == 2){
+			 
+			            
+			 
+			            System.out.println("Ok Creation de la session admin");
+			 
+			            // crï¿½ation d'une session utilisateur ...
+			            //HttpSession session = request.getSession();
+			 
+			            session.setAttribute( "login", u.getLogin() );
+			 
+			            session.setAttribute("id", u.getId_user());
+			 
+			            session.setAttribute("niv", u.getNiveau());
+			 
+			            session.setAttribute("niv_admin", a.getNiv_admin());
+			 
+			            
+			 
+			            // forward vers la page d'acceuil aprï¿½s authentification
+			            this.getServletContext().getRequestDispatcher("/WEB-INF/accueil_admin.jsp").forward( request, response );
+			 
+			            
+			 
+			          }
+					// crÃ©ation d'une session utilisateur ...
 					//HttpSession session = request.getSession();
 					session.setAttribute( "login", u.getLogin() );
 					session.setAttribute("id", u.getId_user());
@@ -100,8 +135,8 @@ public class ControleurPrincipal extends HttpServlet {
 					login_user_session = u.getLogin();
 					niv_user_session = u.getNiveau();
 					
-					// forward vers la page d'acceuil après authentification
-					this.getServletContext().getRequestDispatcher("/accueil.jsp").forward( request, response );
+					// forward vers la page d'acceuil aprÃ¨s authentification
+					this.getServletContext().getRequestDispatcher("/WEB-INF/accueil.jsp").forward( request, response );
 				}
 				
 			} catch (SQLException e) {
@@ -165,9 +200,9 @@ public class ControleurPrincipal extends HttpServlet {
 														System.out.print(codeop + "est la valeur du bidule\n");
 
 														System.out.print("gg");
-														this.getServletContext().getRequestDispatcher("/Index.html").forward( request, response );
+														this.getServletContext().getRequestDispatcher("/WEB-INF/Index.html").forward( request, response );
 														
-														//selon le code ... retourner le résultat de l'opération ... utilisateur ajouté avec succès;
+														//selon le code ... retourner le rÃ©sultat de l'opÃ©ration ... utilisateur ajoutÃ© avec succÃ¨s;
 													
 												}
 											}
@@ -205,12 +240,32 @@ public class ControleurPrincipal extends HttpServlet {
 		else if(idaction.equals("Redirect_Recherche_Cours"))
 		{
 			//HttpSession session = request.getSession();
-			if( session.getAttribute("login") != null )
+			if( session.getAttribute("login") == null )
 			{
-				this.getServletContext().getRequestDispatcher("/Index.jsp").forward( request, response );
+				this.getServletContext().getRequestDispatcher("/WEB-INF/Index.jsp").forward( request, response );
 			}
 			else{
-				this.getServletContext().getRequestDispatcher("/Recherche.jsp").forward( request, response );
+				if(request.getParameter("Recherche_Matiere")!=null&&request.getParameter("Recherche_Niveau")!=null)
+				{
+					/* rÃ©cupÃ©rer les informations de la requete, faire appelle Ã  une fonction DAO
+					 * qui va renvoyer une array de cours*/
+					String cat = request.getParameter("Recherche_Niveau")+request.getParameter("Recherche_Matiere");
+					System.out.println(cat);
+					ArrayList<cours> tab =null;
+					try {
+						tab = coursDAO.getSomeCoursByCategorie(cat);
+						System.out.println("Size of the tab : "+tab.size());
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						System.out.println("probleme avec get some cours");
+						e.printStackTrace();
+					}
+					request.setAttribute("tab",tab);
+				}
+				
+				
+				
+				this.getServletContext().getRequestDispatcher("/WEB-INF/Recherche.jsp").forward( request, response );
 			}
 		}
 		else if(idaction.equals("Redirect_Ajout_Cours"))
@@ -219,11 +274,11 @@ public class ControleurPrincipal extends HttpServlet {
 			if( session.getAttribute("login") == null )
 			{
 				System.out.println("erreur");
-				this.getServletContext().getRequestDispatcher("/Index.jsp").forward( request, response );
+				this.getServletContext().getRequestDispatcher("/WEB-INF/Index.jsp").forward( request, response );
 			}
 			else{
 				System.out.println("redirect faite");
-				this.getServletContext().getRequestDispatcher("/AjoutCours.jsp").forward( request, response );
+				this.getServletContext().getRequestDispatcher("/WEB-INF/AjoutCours.jsp").forward( request, response );
 			}
 		}
 				
@@ -232,7 +287,7 @@ public class ControleurPrincipal extends HttpServlet {
 			//HttpSession session = request.getSession();
 			if( session.getAttribute("login") == null )
 			{
-				this.getServletContext().getRequestDispatcher("/Index.jsp").forward( request, response );
+				this.getServletContext().getRequestDispatcher("/WEB-INF/Index.jsp").forward( request, response );
 			}
 			else
 			{
@@ -241,9 +296,9 @@ public class ControleurPrincipal extends HttpServlet {
 					resultat = coursDAO.getAllCours();
 					//on affiche le nombre de cours dans l'arraylist
 					System.out.println(resultat.size()+" est le nombre de cours");
-					// on redirige vers là page de la liste des cours
+					// on redirige vers lÃ  page de la liste des cours
 					
-					this.getServletContext().getRequestDispatcher("/Recherche.jsp").forward( request, response );
+					this.getServletContext().getRequestDispatcher("/WEB-INF/Recherche.jsp").forward( request, response );
 					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -254,12 +309,12 @@ public class ControleurPrincipal extends HttpServlet {
 		}
 		
 		
-		else if(idaction.equals("Insert_cours"))
+		else if(idaction.equals("Insert_cours"))  /// when someone wants to upload a course
 		{			
 			//HttpSession session = request.getSession();
 		if( session.getAttribute("login") == null )
 		{
-			this.getServletContext().getRequestDispatcher("/Index.jsp").forward( request, response );
+			this.getServletContext().getRequestDispatcher("/WEB-INF/Index.jsp").forward( request, response );
 		}else{
 			
 			String Insert_Matiere = request.getParameter("CHAMP_Cours_Matiere");
@@ -268,17 +323,36 @@ public class ControleurPrincipal extends HttpServlet {
 			String titre_cours = request.getParameter("CHAMP_Cours_Nom");
 			String doc_cours = request.getParameter("CHAMP_Cours_Doc");
 			String id_cours ="";
-			//String id_user = id_user_session;
 			String id_user = (String)(session.getAttribute("id"));
 			String ID_CATEGO = Insert_Niveau+Insert_Matiere;
 			java.sql.Date date_cours = new java.sql.Date(System.currentTimeMillis());
 			
-			cours Ajoutcours = new cours(id_cours, id_user , ID_CATEGO , titre_cours, date_cours, doc_cours);
+			InputStream inputStream = null; // input stream of the upload file
+	         
+	        // obtains the upload file part in this multipart request
+	        Part filePart = request.getPart("Ajout_cours");
+	        if (filePart != null) {
+	            // prints out some information for debugging
+	            System.out.println(filePart.getName()+" is the name of the file");
+	            System.out.println(filePart.getSize()+" is the size of the file");
+	            System.out.println(filePart.getContentType()+" is the the type of the file");
+	             
+	            // obtains input stream of the upload file
+	            inputStream = filePart.getInputStream();
+	        }
+			
+			cours Ajoutcours = new cours();
+			Ajoutcours.setId_cours(id_cours);
+			Ajoutcours.setId_user(id_user);
+			Ajoutcours.setId_categorie(ID_CATEGO);
+			Ajoutcours.setTitre_cours(titre_cours);
+			Ajoutcours.setDoc_cours(doc_cours);
+			Ajoutcours.setTaille_cours(filePart.getSize()); /// is normally long, might cause trouble later on
 			try{
-				System.out.println(id_user);
-				int Insert_cours = coursDAO.insertCours(Ajoutcours);
-				System.out.println("ok insertcours");
-				this.getServletContext().getRequestDispatcher("/accueil.jsp").forward( request, response );
+				System.out.println(cours.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+				int Insert_cours = coursDAO.insertCours(Ajoutcours,inputStream);
+				System.out.println("ok insertcours" + Insert_cours);
+				this.getServletContext().getRequestDispatcher("/WEB-INF/accueil.jsp").forward( request, response );
 			}catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -1,5 +1,6 @@
 package com.ecetech.b3.itproject.redline.dao;
 
+import java.io.InputStream;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -33,6 +34,8 @@ public class coursDAO {
 		        	Resultat.setTitre_cours(DBAction.getRes().getString(4));
 		        	Resultat.setDate_cours(DBAction.getRes().getDate(5));
 		        	Resultat.setDoc_cours(DBAction.getRes().getString(6));
+		        	Resultat.setTaille_cours(DBAction.getRes().getInt(7));
+		        	Resultat.setBlob_cours(DBAction.getRes().getBytes(8));
 		        }
 
 		        DBAction.DBClose();
@@ -58,7 +61,9 @@ public class coursDAO {
 			    	        	DBAction.getRes().getString(3),
 			    	        	DBAction.getRes().getString(4),
 			    	        	DBAction.getRes().getDate(5),
-			    	        	DBAction.getRes().getString(6)
+			    	        	DBAction.getRes().getString(6),
+			    	        	DBAction.getRes().getInt(7),
+			    	        	DBAction.getRes().getBytes(8)
 			    	        	));
 			        }
 
@@ -69,9 +74,12 @@ public class coursDAO {
 				
 		    }    
 			
-			public static int insertCours(cours cours1) throws SQLException {
+			public static int insertCours(cours cours1, InputStream stream) throws SQLException {
 				DBAction.DBConnexion();
-				PreparedStatement req =  DBAction.getCon().prepareStatement("INSERT INTO cours (id_cours, id_user, id_categorie, titre_cours, date_cours, doc_cours ) Values (?,?,?,?,?,?);");
+				int row = 0;
+				PreparedStatement req =  DBAction.getCon().prepareStatement("INSERT INTO cours "
+						+ "(id_cours, id_user, id_categorie, titre_cours, date_cours, doc_cours, taille_cours, blob_cours ) "
+						+ "Values ( ? , ? , ? , ? , ? , ? , ? , ? );");
 				
 				/*String expect = "dd/MM/yyyy";
 				SimpleDateFormat formatter = new SimpleDateFormat(expect);
@@ -99,20 +107,22 @@ public class coursDAO {
 				req.setString(4,cours1.getTitre_cours());
 				 req.setDate( 5, date);                   //req.setDate(5,cours1.getDate_cours());                  
 				req.setString(6,cours1.getDoc_cours());
+				req.setLong(7, cours1.getTaille_cours());
+				req.setBinaryStream(8,stream, cours1.getTaille_cours());
 				
 				
 				try
 				 {
-		            req.executeUpdate();
+		            row = req.executeUpdate();
 					 
 		        } catch (SQLException ex) {
 		        	System.out.println(ex.getErrorCode());
-		        	return 0;
+		        	return row;
 		        }		
 				DBAction.DBClose();
 				
 				
-				return 1;
+				return row;
 		    }    
 			
 			public static int deleteCours(String id) throws SQLException {
@@ -209,6 +219,37 @@ public class coursDAO {
 				DBAction.DBClose();
 				return 1;
 			}
+			
+			public static ArrayList<cours> getSomeCoursByCategorie(String cat) throws SQLException {
+				DBAction.DBConnexion();
+				ArrayList<cours> resultat = new ArrayList<cours>();
+				String req =("SELECT * FROM cours WHERE id_categorie ='" + cat + "';");
+				
+				  try {
+			            DBAction.setRes(DBAction.getStm().executeQuery(req));
+			        } catch (SQLException ex) {
+			        	System.out.println(ex.getErrorCode());
+			        }
+
+			        while (DBAction.getRes().next()) {
+			        	resultat.add(new cours(
+			        			DBAction.getRes().getString(1),
+			    	        	DBAction.getRes().getString(2),
+			    	        	DBAction.getRes().getString(3),
+			    	        	DBAction.getRes().getString(4),
+			    	        	DBAction.getRes().getDate(5),
+			    	        	DBAction.getRes().getString(6),
+			    	        	DBAction.getRes().getInt(7),
+			    	        	DBAction.getRes().getBytes(8)
+			    	        	));
+			        }
+
+			        DBAction.DBClose();
+			        
+			        return resultat;
+				
+				
+		    }
 
 
 
