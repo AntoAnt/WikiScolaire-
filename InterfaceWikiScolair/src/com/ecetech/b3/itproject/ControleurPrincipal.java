@@ -103,6 +103,7 @@ public class ControleurPrincipal extends HttpServlet {
 						session.setAttribute( "login", u.getLogin() );
 						session.setAttribute("id", u.getId_user());
 						session.setAttribute("niv", u.getNiveau());
+						session.setAttribute("niv_admin", a.getNiv_admin());
 						
 						// forward vers la page d'acceuil après authentification
 						this.getServletContext().getRequestDispatcher("/WEB-INF/accueil_admin.jsp").forward( request, response );
